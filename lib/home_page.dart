@@ -13,6 +13,23 @@ class MyHomePage extends StatelessWidget {
       body: AuroraBackground(
         child: Stack(
           children: [
+            // Window drag area at the top (invisible but functional)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 40, // Height of the draggable area
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onPanStart: (details) {
+                  windowManager.startDragging();
+                },
+                onPanUpdate: (details) {
+                  // Window manager handles the dragging
+                },
+                child: Container(color: Colors.transparent),
+              ),
+            ),
             // Window controls at the top
             Positioned(
               top: 0,
