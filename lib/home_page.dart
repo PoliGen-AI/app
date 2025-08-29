@@ -123,9 +123,11 @@ class MyHomePage extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
                             foregroundColor: Color(0xFFED2152),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 32,
-                              vertical: 24,
+                            padding: EdgeInsets.only(
+                              left: 32,
+                              top: 14,
+                              right: 32,
+                              bottom: 20,
                             ),
                             alignment: Alignment.center,
                             textStyle: TextStyle(
