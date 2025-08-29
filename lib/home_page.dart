@@ -55,7 +55,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'transforme suas ideias em imagens incríveis usando inteligência artificial',
+                    'Transforme suas ideias em imagens incríveis usando inteligência artificial',
                     style: TextStyle(
                       fontSize: 22,
                       color: Color(0xFF94A3B8),
@@ -104,7 +104,7 @@ class MyHomePage extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            'entrar',
+                            'Entrar',
                             style: TextStyle(
                               fontSize: 18,
                               height: 28 / 18,
@@ -132,7 +132,7 @@ class MyHomePage extends StatelessWidget {
                                 foregroundColor: Color(0xFFED2152),
                                 padding: EdgeInsets.only(
                                   left: 32,
-                                  top: 14,
+                                  top: 17,
                                   right: 32,
                                   bottom: 20,
                                 ),
@@ -183,7 +183,7 @@ class MyHomePage extends StatelessWidget {
                           onPressed: () {
                             // Add navigation or action for second button
                           },
-                          child: Text('começar', textAlign: TextAlign.center),
+                          child: Text('Começar', textAlign: TextAlign.center),
                         ),
                       ),
                     ],
