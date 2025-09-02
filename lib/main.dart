@@ -9,7 +9,7 @@ void main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = WindowOptions(
-    size: Size(1000, 600),
+    size: Size(1300, 800),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
@@ -21,8 +21,9 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
 
-    await windowManager.setMinimumSize(const Size(1000, 600));
-    await windowManager.setMaximumSize(const Size(1000, 600));
+    // Set fixed window size (non-resizable)
+    await windowManager.setMinimumSize(const Size(1300, 800));
+    await windowManager.setMaximumSize(const Size(1300, 800));
   });
 
   runApp(const MyApp());
