@@ -21,7 +21,6 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
 
-    // Set fixed window size (non-resizable)
     await windowManager.setMinimumSize(const Size(1300, 800));
     await windowManager.setMaximumSize(const Size(1300, 800));
   });

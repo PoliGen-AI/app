@@ -27,14 +27,10 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formChildren = <Widget>[
-      // Title section
       FormTitle(title: title, subtitle: subtitle),
       const SizedBox(height: 20),
 
-      // Custom form fields
       ...children,
-
-      // Default login fields
       if (showDefaultFields && children.isEmpty) ...[
         const FormTextField(label: 'E-mail', hintText: 'Digite seu e-mail'),
         const SizedBox(height: 12),
@@ -44,7 +40,6 @@ class LoginForm extends StatelessWidget {
           obscureText: true,
         ),
         const SizedBox(height: 8),
-        // Forgot password link
         Align(
           alignment: Alignment.centerRight,
           child: MouseRegion(
@@ -126,7 +121,6 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-// Legacy component for backward compatibility - now uses shared components
 class LoginTextField extends StatelessWidget {
   final String label;
   final String hintText;

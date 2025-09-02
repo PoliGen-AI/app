@@ -14,9 +14,7 @@ class MyHomePage extends StatelessWidget {
       body: AuroraBackground(
         child: Stack(
           children: [
-            // Custom title bar with window controls and dragging
             const CustomTitleBar(),
-            // Main content
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

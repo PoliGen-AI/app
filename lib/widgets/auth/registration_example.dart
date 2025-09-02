@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'shared_form_components.dart';
 
-// Password Strength Indicator Component
 class PasswordStrengthIndicator extends StatelessWidget {
   final String password;
 
@@ -12,11 +11,8 @@ class PasswordStrengthIndicator extends StatelessWidget {
   PasswordStrength _calculateStrength() {
     int score = 0;
 
-    // Length check
     if (password.length >= 8) score++;
     if (password.length >= 12) score++;
-
-    // Character variety checks
     if (RegExp(r'[a-z]').hasMatch(password)) score++;
     if (RegExp(r'[A-Z]').hasMatch(password)) score++;
     if (RegExp(r'[0-9]').hasMatch(password)) score++;
@@ -29,7 +25,6 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Only show indicator when there's text
     if (password.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -59,10 +54,10 @@ class PasswordStrengthIndicator extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: strength == PasswordStrength.weak
-                          ? const Color(0xFFEF4444) // Red
+                          ? const Color(0xFFEF4444)
                           : strength == PasswordStrength.medium
-                          ? const Color(0xFFF59E0B) // Yellow/Orange
-                          : const Color(0xFF10B981), // Green
+                          ? const Color(0xFFF59E0B)
+                          : const Color(0xFF10B981),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -126,10 +121,6 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
 enum PasswordStrength { weak, medium, strong }
 
-/// Example showing how to create a registration form using shared components
-/// This demonstrates reusability across different pages
-
-// Example of how to create a registration page using the same components
 class RegistrationForm extends StatefulWidget {
   final VoidCallback? onBackToLogin;
 
@@ -151,11 +142,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
   @override
   Widget build(BuildContext context) {
     final formChildren = [
-      // Title section
       const FormTitle(title: 'Criar conta', subtitle: 'Junte-se ao Poligen'),
       const SizedBox(height: 20),
-
-      // Registration fields
       const FormTextField(
         label: 'Nome completo',
         hintText: 'Digite seu nome completo',
@@ -186,18 +174,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
       ),
       const SizedBox(height: 16),
 
-      // Register button
       PrimaryButton(
         text: 'Criar conta',
         onPressed: () {
-          // Navigate back to login or show success message
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Conta criada com sucesso!'),
               backgroundColor: Color(0xFF75152F),
             ),
           );
-          // Optionally navigate back to login after a delay
           Future.delayed(const Duration(seconds: 2), () {
             if (context.mounted) {
               Navigator.of(context).pop();
@@ -210,7 +195,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
       const FormDivider(text: 'Ou continue com'),
       const SizedBox(height: 12),
 
-      // Social login buttons
       SecondaryButton(
         text: 'Continuar com Google',
         onPressed: () {
@@ -236,8 +220,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
         ),
       ),
       const SizedBox(height: 16),
-
-      // Footer
       FormFooter(
         primaryText: "Já tem uma conta?",
         actionText: "Fazer login",
@@ -253,7 +235,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 }
 
-// Example of a password reset form
 class PasswordResetForm extends StatelessWidget {
   const PasswordResetForm({super.key});
 

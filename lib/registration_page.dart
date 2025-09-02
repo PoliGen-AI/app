@@ -11,9 +11,7 @@ class RegistrationPage extends StatelessWidget {
       body: AuroraBackground(
         child: Stack(
           children: [
-            // Custom title bar with window controls and dragging
             const CustomTitleBar(),
-            // Simplified back button - just arrow icon
             Positioned(
               top: 15,
               left: 15,
@@ -30,7 +28,6 @@ class RegistrationPage extends StatelessWidget {
                 constraints: const BoxConstraints(),
               ),
             ),
-            // Main content with form
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Center(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// A reusable form container that can be used across different pages
 class FormContainer extends StatelessWidget {
   final double width;
   final EdgeInsets padding;
@@ -58,7 +57,6 @@ class FormContainer extends StatelessWidget {
   }
 }
 
-/// A reusable form title component
 class FormTitle extends StatelessWidget {
   final String title;
   final String? subtitle;
@@ -105,7 +103,6 @@ class FormTitle extends StatelessWidget {
   }
 }
 
-/// A generic divider with customizable text
 class FormDivider extends StatelessWidget {
   final String text;
   final Color? textColor;
@@ -150,7 +147,6 @@ class FormDivider extends StatelessWidget {
   }
 }
 
-/// A generic form footer with two texts
 class FormFooter extends StatelessWidget {
   final String primaryText;
   final String actionText;
@@ -199,7 +195,6 @@ class FormFooter extends StatelessWidget {
   }
 }
 
-/// A generic secondary button (like Google sign-in)
 class SecondaryButton extends StatelessWidget {
   final String text;
   final Widget? leadingIcon;
@@ -276,8 +271,6 @@ class SecondaryButton extends StatelessWidget {
   }
 }
 
-/// A generic primary button with gradient
-/// A reusable text field component
 class FormTextField extends StatefulWidget {
   final String label;
   final String hintText;
