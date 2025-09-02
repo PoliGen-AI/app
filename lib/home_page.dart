@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'widgets/widgets.dart';
+import 'login_page.dart';
+import 'registration_page.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -43,7 +45,7 @@ class MyHomePage extends StatelessWidget {
                         ),
                         SizedBox(width: 12),
                         Text(
-                          'poligen',
+                          'PoliGen',
                           style: TextStyle(
                             fontSize: 56,
                             fontWeight: FontWeight.w600,
@@ -99,7 +101,7 @@ class MyHomePage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Container(),
+                                builder: (context) => const LoginPage(),
                               ),
                             );
                           },
@@ -181,7 +183,12 @@ class MyHomePage extends StatelessWidget {
                                     }),
                               ),
                           onPressed: () {
-                            // Add navigation or action for second button
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RegistrationPage(),
+                              ),
+                            );
                           },
                           child: Text('Começar', textAlign: TextAlign.center),
                         ),
