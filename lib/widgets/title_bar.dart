@@ -40,13 +40,6 @@ class CustomTitleBar extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   constraints: BoxConstraints(),
                 ),
-                // Maximize button
-                IconButton(
-                  icon: Icon(Icons.crop_square, color: Colors.white, size: 16),
-                  onPressed: () => windowManager.maximize(),
-                  padding: EdgeInsets.all(8),
-                  constraints: BoxConstraints(),
-                ),
                 // Close button
                 IconButton(
                   icon: Icon(Icons.close, color: Colors.white, size: 16),
