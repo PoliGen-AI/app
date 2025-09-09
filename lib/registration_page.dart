@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'widgets/widgets.dart';
 import 'widgets/auth/registration_example.dart';
 
@@ -11,7 +12,7 @@ class RegistrationPage extends StatelessWidget {
       body: AuroraBackground(
         child: Stack(
           children: [
-            const CustomTitleBar(),
+            if (!Platform.isMacOS) const CustomTitleBar(),
             Positioned(
               top: 15,
               left: 15,

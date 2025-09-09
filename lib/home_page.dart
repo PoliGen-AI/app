@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:io';
 
 import 'widgets/widgets.dart';
 import 'login_page.dart';
@@ -14,7 +15,7 @@ class MyHomePage extends StatelessWidget {
       body: AuroraBackground(
         child: Stack(
           children: [
-            const CustomTitleBar(),
+            if (!Platform.isMacOS) const CustomTitleBar(),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'widgets/widgets.dart';
 import 'widgets/auth/login_form.dart';
 import 'registration_page.dart';
@@ -12,7 +13,7 @@ class LoginPage extends StatelessWidget {
       body: AuroraBackground(
         child: Stack(
           children: [
-            const CustomTitleBar(),
+            if (!Platform.isMacOS) const CustomTitleBar(),
             Positioned(
               top: 15,
               left: 15,
