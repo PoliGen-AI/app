@@ -34,12 +34,12 @@ class PasswordStrengthIndicator extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Row(
           children: [
             Expanded(
               child: Container(
-                height: 4,
+                height: 3,
                 decoration: BoxDecoration(
                   color: const Color(0xFF2A2A2A),
                   borderRadius: BorderRadius.circular(2),
@@ -83,13 +83,13 @@ class PasswordStrengthIndicator extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Text(
           _getRequirementsText(),
           style: GoogleFonts.inter(
-            fontSize: 13,
+            fontSize: 12,
             color: const Color(0xFF6B7280),
-            height: 1.4,
+            height: 1.3,
           ),
         ),
       ],
@@ -143,19 +143,19 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Widget build(BuildContext context) {
     final formChildren = [
       const FormTitle(title: 'Criar conta', subtitle: 'Junte-se ao Poligen'),
-      const SizedBox(height: 20),
+      const SizedBox(height: 12),
       const FormTextField(
         label: 'Nome completo',
         hintText: 'Digite seu nome completo',
       ),
-      const SizedBox(height: 12),
+      const SizedBox(height: 8),
 
       const FormTextField(
         label: 'E-mail',
         hintText: 'Digite seu e-mail',
         keyboardType: TextInputType.emailAddress,
       ),
-      const SizedBox(height: 12),
+      const SizedBox(height: 8),
 
       FormTextField(
         label: 'Senha',
@@ -165,14 +165,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
         onChanged: (value) => setState(() {}),
       ),
       PasswordStrengthIndicator(password: _passwordController.text),
-      const SizedBox(height: 12),
+      const SizedBox(height: 8),
 
       const FormTextField(
         label: 'Confirmar senha',
         hintText: 'Digite sua senha novamente',
         obscureText: true,
       ),
-      const SizedBox(height: 16),
+      const SizedBox(height: 10),
 
       PrimaryButton(
         text: 'Criar conta',
@@ -190,10 +190,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
           });
         },
       ),
-      const SizedBox(height: 12),
+      const SizedBox(height: 8),
 
       const FormDivider(text: 'Ou continue com'),
-      const SizedBox(height: 12),
+      const SizedBox(height: 8),
 
       SecondaryButton(
         text: 'Continuar com Google',
@@ -219,7 +219,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
           ),
         ),
       ),
-      const SizedBox(height: 16),
+      const SizedBox(height: 12),
       FormFooter(
         primaryText: "Já tem uma conta?",
         actionText: "Fazer login",

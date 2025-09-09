@@ -9,20 +9,30 @@ void main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = WindowOptions(
-    size: Size(1300, 800),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.hidden,
     title: 'PoliGen-AI',
+    minimumSize: const Size(700, 500),
+    maximumSize: const Size(1000, 650),
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
+    // Show the window first
     await windowManager.show();
+
+    // Small delay to ensure window is ready
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    // Start maximized to automatically fit any screen size
+    await windowManager.maximize();
     await windowManager.focus();
 
-    await windowManager.setMinimumSize(const Size(1300, 800));
-    await windowManager.setMaximumSize(const Size(1300, 800));
+    // Allow window controls
+    await windowManager.setMaximizable(true);
+    await windowManager.setMinimizable(true);
+    await windowManager.setClosable(true);
   });
 
   runApp(const MyApp());

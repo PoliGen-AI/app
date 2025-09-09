@@ -28,18 +28,22 @@ class LoginPage extends StatelessWidget {
                 constraints: const BoxConstraints(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Center(
-                child: LoginForm(
-                  onCreateAccountPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegistrationPage(),
-                      ),
-                    );
-                  },
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 100, 16, 16),
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: LoginForm(
+                      onCreateAccountPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegistrationPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
             ),

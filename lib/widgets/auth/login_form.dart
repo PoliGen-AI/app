@@ -28,7 +28,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final formChildren = <Widget>[
       FormTitle(title: title, subtitle: subtitle),
-      const SizedBox(height: 20),
+      const SizedBox(height: 16),
 
       ...children,
       if (showDefaultFields && children.isEmpty) ...[
@@ -66,7 +66,7 @@ class LoginForm extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         PrimaryButton(
           text: 'Entrar',
           onPressed:

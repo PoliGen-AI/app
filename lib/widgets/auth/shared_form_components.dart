@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FormContainer extends StatelessWidget {
-  final double width;
+  final double? width;
   final EdgeInsets padding;
   final List<Widget> children;
   final Color? backgroundColor;
@@ -11,8 +11,8 @@ class FormContainer extends StatelessWidget {
 
   const FormContainer({
     super.key,
-    this.width = 450,
-    this.padding = const EdgeInsets.all(20),
+    this.width,
+    this.padding = const EdgeInsets.all(16),
     required this.children,
     this.backgroundColor,
     this.borderRadius,
@@ -21,8 +21,14 @@ class FormContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Responsive width: use 85% of screen width but cap at 400px max, 320px min
+    final responsiveWidth = width ?? (screenWidth * 0.85).clamp(320.0, 400.0);
+
     return Container(
-      width: width,
+      width: responsiveWidth,
       padding: padding,
       decoration: BoxDecoration(
         color: backgroundColor ?? const Color(0xFF1A1A1A).withOpacity(0.5),

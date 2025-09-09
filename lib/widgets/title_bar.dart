@@ -35,6 +35,20 @@ class CustomTitleBar extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   constraints: BoxConstraints(),
                 ),
+                // IconButton(
+                //   icon: Icon(Icons.crop_square, color: Colors.white, size: 16),
+                //   onPressed: () async {
+                //     // Toggle between maximized and restored
+                //     bool isMaximized = await windowManager.isMaximized();
+                //     if (isMaximized) {
+                //       await windowManager.unmaximize();
+                //     } else {
+                //       await windowManager.maximize();
+                //     }
+                //   },
+                //   padding: EdgeInsets.all(8),
+                //   constraints: BoxConstraints(),
+                // ),
                 IconButton(
                   icon: Icon(Icons.close, color: Colors.white, size: 16),
                   onPressed: () => windowManager.close(),

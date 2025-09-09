@@ -28,11 +28,15 @@ class RegistrationPage extends StatelessWidget {
                 constraints: const BoxConstraints(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Center(
-                child: RegistrationForm(
-                  onBackToLogin: () => Navigator.of(context).pop(),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 60, 16, 16),
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: RegistrationForm(
+                      onBackToLogin: () => Navigator.of(context).pop(),
+                    ),
+                  ),
                 ),
               ),
             ),
