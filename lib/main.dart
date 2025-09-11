@@ -3,27 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-// 1. Importe o serviço de notificação que criamos
+import 'home_page.dart';
 import 'services/notification_service.dart';
-import 'home_page.dart'; // Supondo que sua MyHomePage esteja aqui
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Inicialize o serviço de notificação logo no início
+  // Initialize notification service first
   await NotificationService().init();
 
+  // Inicializa o gerenciador de janelas
   await windowManager.ensureInitialized();
 
-  // O listener da janela agora chamará nosso serviço de notificação
-  windowManager.addListener(_WindowListener());
-
-  // Garante que o setPreventClose(true) seja chamado para interceptar o fechamento
+  // Previne fechamento direto
   await windowManager.setPreventClose(true);
 
-  await trayManager.setIcon(
-    'assets/Vector.ico',
-  ); // Certifique-se que este arquivo existe em assets
+  // Desabilita maximizar
+  await windowManager.setMaximizable(false);
+  await windowManager.setResizable(false);
+
+  // Tray config
+  await trayManager.setIcon('assets/Vector.ico'); // .ico no Windows
   await trayManager.setToolTip('PoliGen-AI');
 
   Menu menu = Menu(
@@ -35,11 +35,10 @@ void main() async {
       MenuItem(key: 'exit_app', label: 'Sair'),
     ],
   );
-
   await trayManager.setContextMenu(menu);
-
   trayManager.addListener(_TrayListener());
 
+  // Opções da janela
   WindowOptions windowOptions = WindowOptions(
     center: true,
     backgroundColor: Colors.transparent,
@@ -52,13 +51,14 @@ void main() async {
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
-    await Future.delayed(const Duration(milliseconds: 100));
-    await windowManager.maximize();
     await windowManager.focus();
-    await windowManager.setMaximizable(true);
+    // Do not auto-maximize - keep window at preferred size
     await windowManager.setMinimizable(true);
     await windowManager.setClosable(true);
   });
+
+  // Listener da janela
+  windowManager.addListener(_WindowListener());
 
   runApp(const MyApp());
 }
@@ -104,12 +104,10 @@ class _TrayListener with TrayListener {
       case 'settings':
         await windowManager.show();
         await windowManager.focus();
-        // TODO: Navigate to settings page
+        // TODO: Navegar para a tela de configurações
         break;
       case 'exit_app':
-        // IMPORTANTE: Usamos destroy() para fechar o app de verdade.
-        // Se usássemos close(), ele apenas esconderia a janela de novo.
-        await windowManager.destroy();
+        await windowManager.destroy(); // Fecha de verdade
         break;
     }
   }
@@ -118,22 +116,25 @@ class _TrayListener with TrayListener {
 class _WindowListener with WindowListener {
   @override
   void onWindowClose() async {
-    // Esconde a janela para a bandeja
-    await windowManager.hide();
-
-    // 3. Chama o nosso serviço para mostrar a notificação do sistema
-    await NotificationService().showTrayNotification();
-    // O código antigo de debugPrint e a função _showSystemNotification foram removidos.
+    // Check if we have prevent close enabled
+    final bool isPreventClose = await windowManager.isPreventClose();
+    if (isPreventClose) {
+      // Hide to tray and show notification
+      await windowManager.hide();
+      await NotificationService().showTrayNotification();
+      return;
+    }
+    // Otherwise, allow normal destroy
+    await windowManager.destroy();
   }
 
-  // Outros listeners podem ser mantidos se você precisar deles
   @override
   void onWindowMinimize() {
-    // Comportamento normal de minimizar
+    // Comportamento padrão
   }
 
   @override
   void onWindowRestore() {
-    // Opcional: lidar com evento de restauração
+    // Opcional
   }
 }

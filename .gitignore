@@ -10,7 +10,9 @@
 .history
 .svn/
 .swiftpm/
+.cursor/
 migrate_working_dir/
+certificate.pfx
 
 # IntelliJ related
 *.iml

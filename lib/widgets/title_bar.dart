@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import '../services/notification_service.dart';
 
 class CustomTitleBar extends StatelessWidget {
   const CustomTitleBar({super.key});
