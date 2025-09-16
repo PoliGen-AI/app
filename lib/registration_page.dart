@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'widgets/widgets.dart';
 import 'widgets/auth/registration_example.dart';
+import 'dashboard_page.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -35,6 +36,16 @@ class RegistrationPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Center(
                     child: RegistrationForm(
+                      onRegistrationSuccess: () {
+                        // Navigate to dashboard after successful registration
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DashboardPage(),
+                          ),
+                          (route) => false, // Remove all previous routes
+                        );
+                      },
                       onBackToLogin: () => Navigator.of(context).pop(),
                     ),
                   ),

@@ -122,9 +122,14 @@ class PasswordStrengthIndicator extends StatelessWidget {
 enum PasswordStrength { weak, medium, strong }
 
 class RegistrationForm extends StatefulWidget {
+  final VoidCallback? onRegistrationSuccess;
   final VoidCallback? onBackToLogin;
 
-  const RegistrationForm({super.key, this.onBackToLogin});
+  const RegistrationForm({
+    super.key,
+    this.onRegistrationSuccess,
+    this.onBackToLogin,
+  });
 
   @override
   State<RegistrationForm> createState() => _RegistrationFormState();
@@ -183,9 +188,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
               backgroundColor: Color(0xFF75152F),
             ),
           );
-          Future.delayed(const Duration(seconds: 2), () {
+          Future.delayed(const Duration(seconds: 1), () {
             if (context.mounted) {
-              Navigator.of(context).pop();
+              widget.onRegistrationSuccess?.call();
             }
           });
         },

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'widgets/widgets.dart';
 import 'widgets/auth/login_form.dart';
 import 'registration_page.dart';
+import 'dashboard_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -35,6 +36,16 @@ class LoginPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Center(
                     child: LoginForm(
+                      onLoginPressed: () {
+                        // Navigate to dashboard after successful login
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DashboardPage(),
+                          ),
+                          (route) => false, // Remove all previous routes
+                        );
+                      },
                       onCreateAccountPressed: () {
                         Navigator.push(
                           context,

@@ -69,11 +69,19 @@ class LoginForm extends StatelessWidget {
         const SizedBox(height: 12),
         PrimaryButton(
           text: 'Entrar',
-          onPressed:
-              onLoginPressed ??
-              () {
-                print('Login button pressed');
-              },
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Login realizado com sucesso!'),
+                backgroundColor: Color(0xFF75152F),
+              ),
+            );
+            Future.delayed(const Duration(seconds: 1), () {
+              if (context.mounted) {
+                onLoginPressed?.call();
+              }
+            });
+          },
         ),
         const SizedBox(height: 12),
         const FormDivider(text: 'Ou continue com'),
