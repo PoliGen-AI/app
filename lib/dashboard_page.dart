@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:poligen_app/widgets/widgets.dart';
+import 'package:poligen_app/widgets/profile_modal.dart';
+import 'package:poligen_app/models/user_model.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -44,6 +46,16 @@ class _DashboardPageState extends State<DashboardPage> {
     _promptController.dispose();
     _negativePromptController.dispose();
     super.dispose();
+  }
+
+  void _showProfileModal() {
+    final user = User.mock(); // Using mock user data for demonstration
+
+    showDialog(
+      context: context,
+      builder: (context) =>
+          ProfileModal(user: user, onClose: () => Navigator.of(context).pop()),
+    );
   }
 
   @override
@@ -160,7 +172,20 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _buildUserControl(String text, IconData icon) {
     return TextButton.icon(
-      onPressed: () {},
+      onPressed: () {
+        switch (text) {
+          case 'Perfil':
+            _showProfileModal();
+            break;
+          case 'Configurações':
+            // TODO: Navigate to settings screen
+            break;
+          case 'Sair':
+            // TODO: Implement logout functionality
+            Navigator.of(context).pushReplacementNamed('/');
+            break;
+        }
+      },
       icon: Icon(icon, color: Colors.white70, size: 16),
       label: Text(
         text,
