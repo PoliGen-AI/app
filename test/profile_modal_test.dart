@@ -19,7 +19,8 @@ void main() {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => ProfileModal(user: user),
+                  builder: (context) =>
+                      ProfileModal(user: user, onUserUpdated: (updatedUser) {}),
                 );
               },
               child: const Text('Show Profile'),
@@ -60,7 +61,7 @@ void main() {
     expect(find.text('Conta Verificada'), findsOneWidget);
 
     // Verify buttons are present
-    expect(find.text('Editar Perfil'), findsOneWidget);
+    expect(find.byIcon(Icons.edit), findsOneWidget);
     expect(find.text('Fechar'), findsOneWidget);
   });
 
@@ -75,7 +76,8 @@ void main() {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => ProfileModal(user: user),
+                  builder: (context) =>
+                      ProfileModal(user: user, onUserUpdated: (updatedUser) {}),
                 );
               },
               child: const Text('Show Profile'),
@@ -98,6 +100,51 @@ void main() {
 
     // Verify modal is closed
     expect(find.text('Perfil'), findsNothing);
+  });
+
+  testWidgets('Profile modal edit mode works', (WidgetTester tester) async {
+    final user = User.mock();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: SizedBox(
+          width: 1200,
+          height: 800,
+          child: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => ProfileModal(
+                      user: user,
+                      onUserUpdated: (updatedUser) {},
+                    ),
+                  );
+                },
+                child: const Text('Show Profile'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // Show modal
+    await tester.tap(find.text('Show Profile'));
+    await tester.pumpAndSettle();
+
+    // Switch to edit mode
+    await tester.tap(find.byIcon(Icons.edit));
+    await tester.pumpAndSettle();
+
+    // Verify we're in edit mode
+    expect(find.text('Editar Perfil'), findsOneWidget);
+    expect(find.text('Nome'), findsOneWidget);
+    expect(find.text('E-mail'), findsOneWidget);
+    expect(find.text('Biografia'), findsOneWidget);
+    expect(find.text('Salvar'), findsOneWidget);
+    expect(find.text('Cancelar'), findsOneWidget);
   });
 
   test('User model creates mock user correctly', () {

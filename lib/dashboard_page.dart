@@ -22,6 +22,8 @@ class _DashboardPageState extends State<DashboardPage> {
   late String _selectedSeed;
   late String _selectedQuantity;
 
+  late User _currentUser = User.mock();
+
   @override
   void initState() {
     super.initState();
@@ -49,13 +51,20 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   void _showProfileModal() {
-    final user = User.mock(); // Using mock user data for demonstration
-
     showDialog(
       context: context,
-      builder: (context) =>
-          ProfileModal(user: user, onClose: () => Navigator.of(context).pop()),
+      builder: (context) => ProfileModal(
+        user: _currentUser,
+        onClose: () => Navigator.of(context).pop(),
+        onUserUpdated: _handleUserUpdate,
+      ),
     );
+  }
+
+  void _handleUserUpdate(User updatedUser) {
+    setState(() {
+      _currentUser = updatedUser;
+    });
   }
 
   @override
