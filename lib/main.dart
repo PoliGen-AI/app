@@ -5,12 +5,16 @@ import 'package:tray_manager/tray_manager.dart';
 
 import 'home_page.dart';
 import 'services/notification_service.dart';
+import 'services/settings_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize notification service first
   await NotificationService().init();
+
+  // Initialize settings service
+  await SettingsService().initialize();
 
   // Inicializa o gerenciador de janelas
   await windowManager.ensureInitialized();
@@ -68,16 +72,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PoliGen AI',
-      theme: ThemeData.dark(useMaterial3: true).copyWith(
-        textTheme: GoogleFonts.interTextTheme(
-          ThemeData.dark(useMaterial3: true).textTheme,
-        ),
-      ),
-      themeMode: ThemeMode.dark,
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+    final settingsService = SettingsService();
+
+    return AnimatedBuilder(
+      animation: settingsService,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'PoliGen AI',
+          theme: ThemeData.light(useMaterial3: true).copyWith(
+            textTheme: GoogleFonts.interTextTheme(
+              ThemeData.light(useMaterial3: true).textTheme,
+            ),
+          ),
+          darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+            textTheme: GoogleFonts.interTextTheme(
+              ThemeData.dark(useMaterial3: true).textTheme,
+            ),
+          ),
+          themeMode: settingsService.themeMode,
+          debugShowCheckedModeBanner: false,
+          home: const MyHomePage(),
+        );
+      },
     );
   }
 }

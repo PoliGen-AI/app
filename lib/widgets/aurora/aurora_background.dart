@@ -52,17 +52,22 @@ class _AuroraBackgroundState extends State<AuroraBackground>
 
   @override
   Widget build(BuildContext context) {
-    const backgroundColor = Color(0xFF18181B);
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = isDarkTheme
+        ? const Color(0xFF18181B)
+        : const Color(0xFFF0F4F8);
 
     return Container(
       color: backgroundColor,
       child: Stack(
         fit: StackFit.expand,
         children: [
+          // Show aurora effect in both themes with theme-aware colors
           AuroraEffect(
             topCircle: _topCircleAnimation,
             centerCircle: _centerCircleAnimation,
             bottomCircle: _bottomCircleAnimation,
+            isLightTheme: !isDarkTheme,
           ),
           widget.child,
         ],

@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:poligen_app/widgets/widgets.dart';
 import 'package:poligen_app/widgets/profile_modal.dart';
 import 'package:poligen_app/models/user_model.dart';
+import 'package:poligen_app/settings_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -120,6 +121,8 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildHeader() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
@@ -142,10 +145,10 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
           const SizedBox(width: 12),
-          const Text(
+          Text(
             'PoliGen',
             style: TextStyle(
-              color: Colors.white,
+              color: isDarkTheme ? Colors.white : Colors.black87,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -166,12 +169,16 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildNavButton(String text, bool isActive) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return TextButton(
       onPressed: () {},
       child: Text(
         text,
         style: TextStyle(
-          color: isActive ? const Color(0xFFFF6B9D) : Colors.white70,
+          color: isActive
+              ? const Color(0xFFFF6B9D)
+              : (isDarkTheme ? Colors.white70 : Colors.black54),
           fontSize: 16,
           fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
         ),
@@ -180,6 +187,8 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildUserControl(String text, IconData icon) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return TextButton.icon(
       onPressed: () {
         switch (text) {
@@ -187,7 +196,9 @@ class _DashboardPageState extends State<DashboardPage> {
             _showProfileModal();
             break;
           case 'Configurações':
-            // TODO: Navigate to settings screen
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            );
             break;
           case 'Sair':
             // TODO: Implement logout functionality
@@ -195,19 +206,39 @@ class _DashboardPageState extends State<DashboardPage> {
             break;
         }
       },
-      icon: Icon(icon, color: Colors.white70, size: 16),
+      icon: Icon(
+        icon,
+        color: isDarkTheme ? Colors.white70 : Colors.black54,
+        size: 16,
+      ),
       label: Text(
         text,
-        style: const TextStyle(color: Colors.white70, fontSize: 14),
+        style: TextStyle(
+          color: isDarkTheme ? Colors.white70 : Colors.black54,
+          fontSize: 14,
+        ),
       ),
     );
   }
 
   Widget _buildMainContent() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 400, maxWidth: 800),
       child: Container(
         padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: isDarkTheme
+              ? Colors.black.withOpacity(0.3)
+              : Colors.white.withOpacity(0.8),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isDarkTheme
+                ? Colors.white.withOpacity(0.1)
+                : Colors.black.withOpacity(0.1),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -221,20 +252,28 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildImageGenerationSection() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: isDarkTheme
+            ? Colors.black.withOpacity(0.3)
+            : Colors.white.withOpacity(0.6),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(
+          color: isDarkTheme
+              ? Colors.white.withOpacity(0.1)
+              : Colors.black.withOpacity(0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Gerar nova imagem',
             style: TextStyle(
-              color: Colors.white,
+              color: isDarkTheme ? Colors.white : Colors.black87,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -243,33 +282,49 @@ class _DashboardPageState extends State<DashboardPage> {
           TextField(
             controller: _promptController,
             maxLines: 3,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: isDarkTheme ? Colors.white : Colors.black87,
+            ),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.black.withOpacity(0.5),
+              fillColor: isDarkTheme
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.8),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide.none,
               ),
               hintText:
                   'Digite uma descrição detalhada da imagem que deseja gerar...',
-              hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+              hintStyle: TextStyle(
+                color: isDarkTheme
+                    ? Colors.white.withOpacity(0.5)
+                    : Colors.black.withOpacity(0.5),
+              ),
             ),
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _negativePromptController,
             maxLines: 2,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: isDarkTheme ? Colors.white : Colors.black87,
+            ),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.black.withOpacity(0.5),
+              fillColor: isDarkTheme
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.white.withOpacity(0.8),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide.none,
               ),
               hintText: 'Digite elementos que não deseja na imagem...',
-              hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+              hintStyle: TextStyle(
+                color: isDarkTheme
+                    ? Colors.white.withOpacity(0.5)
+                    : Colors.black.withOpacity(0.5),
+              ),
             ),
           ),
           const SizedBox(height: 24),
@@ -397,25 +452,32 @@ class _DashboardPageState extends State<DashboardPage> {
       }
     }
 
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(color: Colors.white70, fontSize: 14),
+          style: TextStyle(
+            color: isDarkTheme ? Colors.white70 : Colors.black54,
+            fontSize: 14,
+          ),
         ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
+            color: isDarkTheme
+                ? Colors.black.withOpacity(0.5)
+                : Colors.white.withOpacity(0.8),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Theme(
             data: Theme.of(context).copyWith(
-              canvasColor: Colors.black87,
+              canvasColor: isDarkTheme ? Colors.black87 : Colors.white,
               popupMenuTheme: PopupMenuThemeData(
-                color: Colors.black87,
+                color: isDarkTheme ? Colors.black87 : Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -427,8 +489,10 @@ class _DashboardPageState extends State<DashboardPage> {
               value: value,
               isExpanded: true,
               underline: const SizedBox(),
-              dropdownColor: Colors.black87,
-              style: const TextStyle(color: Colors.white),
+              dropdownColor: isDarkTheme ? Colors.black87 : Colors.white,
+              style: TextStyle(
+                color: isDarkTheme ? Colors.white : Colors.black87,
+              ),
               borderRadius: BorderRadius.circular(16),
               items: options.map((String option) {
                 return DropdownMenuItem<String>(
@@ -440,7 +504,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     child: Text(
                       option,
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: isDarkTheme ? Colors.white : Colors.black87,
+                      ),
                     ),
                   ),
                 );
@@ -473,18 +539,25 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildSlider() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Passos de difusão: ${_diffusionSteps.round()}',
-          style: const TextStyle(color: Colors.white70, fontSize: 14),
+          style: TextStyle(
+            color: isDarkTheme ? Colors.white70 : Colors.black54,
+            fontSize: 14,
+          ),
         ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
+            color: isDarkTheme
+                ? Colors.black.withOpacity(0.5)
+                : Colors.white.withOpacity(0.8),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Slider(
@@ -493,7 +566,9 @@ class _DashboardPageState extends State<DashboardPage> {
             max: 50,
             divisions: 8,
             activeColor: const Color(0xFFFF6B9D),
-            inactiveColor: Colors.white.withOpacity(0.3),
+            inactiveColor: isDarkTheme
+                ? Colors.white.withOpacity(0.3)
+                : Colors.black.withOpacity(0.3),
             onChanged: (double value) {
               setState(() {
                 _diffusionSteps = value;
@@ -506,15 +581,21 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildResultSection() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: double.infinity,
       height: 400,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: isDarkTheme
+            ? Colors.black.withOpacity(0.3)
+            : Colors.white.withOpacity(0.6),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withOpacity(0.1),
+          color: isDarkTheme
+              ? Colors.white.withOpacity(0.1)
+              : Colors.black.withOpacity(0.1),
           style: BorderStyle.solid,
           strokeAlign: BorderSide.strokeAlignInside,
         ),
@@ -522,10 +603,10 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'Resultado',
             style: TextStyle(
-              color: Colors.white,
+              color: isDarkTheme ? Colors.white : Colors.black87,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -533,7 +614,9 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 32),
           CustomPaint(
             painter: _DashedBorderPainter(
-              color: Colors.white.withOpacity(0.3),
+              color: isDarkTheme
+                  ? Colors.white.withOpacity(0.3)
+                  : Colors.black.withOpacity(0.3),
               strokeWidth: 2,
               gap: 5,
             ),
@@ -548,14 +631,18 @@ class _DashboardPageState extends State<DashboardPage> {
                 children: [
                   Icon(
                     Icons.image_outlined,
-                    color: Colors.white.withOpacity(0.5),
+                    color: isDarkTheme
+                        ? Colors.white.withOpacity(0.5)
+                        : Colors.black.withOpacity(0.5),
                     size: 64,
                   ),
                   const SizedBox(height: 16),
                   Text(
                     'Sua imagem aparecerá aqui',
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
+                      color: isDarkTheme
+                          ? Colors.white.withOpacity(0.7)
+                          : Colors.black.withOpacity(0.7),
                       fontSize: 16,
                     ),
                   ),
@@ -569,11 +656,24 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildSidebar() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 320, maxWidth: 320),
       child: Container(
         width: 320,
         padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: isDarkTheme
+              ? Colors.black.withOpacity(0.3)
+              : Colors.white.withOpacity(0.8),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isDarkTheme
+                ? Colors.white.withOpacity(0.1)
+                : Colors.black.withOpacity(0.1),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -587,20 +687,28 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildRecentImagesSection() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: isDarkTheme
+            ? Colors.black.withOpacity(0.3)
+            : Colors.white.withOpacity(0.6),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(
+          color: isDarkTheme
+              ? Colors.white.withOpacity(0.1)
+              : Colors.black.withOpacity(0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Imagens recentes',
             style: TextStyle(
-              color: Colors.white,
+              color: isDarkTheme ? Colors.white : Colors.black87,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -618,13 +726,21 @@ class _DashboardPageState extends State<DashboardPage> {
               itemBuilder: (context, index) {
                 return Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: isDarkTheme
+                        ? Colors.black.withOpacity(0.5)
+                        : Colors.white.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    border: Border.all(
+                      color: isDarkTheme
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.black.withOpacity(0.2),
+                    ),
                   ),
                   child: Icon(
                     Icons.image_outlined,
-                    color: Colors.white.withOpacity(0.3),
+                    color: isDarkTheme
+                        ? Colors.white.withOpacity(0.3)
+                        : Colors.black.withOpacity(0.3),
                     size: 32,
                   ),
                 );
@@ -648,20 +764,28 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildStatisticsSection() {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: isDarkTheme
+            ? Colors.black.withOpacity(0.3)
+            : Colors.white.withOpacity(0.6),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(
+          color: isDarkTheme
+              ? Colors.white.withOpacity(0.1)
+              : Colors.black.withOpacity(0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Estatísticas',
             style: TextStyle(
-              color: Colors.white,
+              color: isDarkTheme ? Colors.white : Colors.black87,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -678,12 +802,19 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildStatItem(String label, String value) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+          style: TextStyle(
+            color: isDarkTheme
+                ? Colors.white.withOpacity(0.8)
+                : Colors.black.withOpacity(0.8),
+            fontSize: 14,
+          ),
         ),
         Text(
           value,
